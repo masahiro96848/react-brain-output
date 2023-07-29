@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from '../InputSearchForm/styles.module.css'
 
-type InputFormProps = {
+type InputSearchFormProps = {
   searchInputValue: string
   placeholder: string
   handleSearchTodo: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const InputSearchForm = (props: InputFormProps) => {
+export const InputSearchForm = (props: InputSearchFormProps) => {
   const { searchInputValue, handleSearchTodo, placeholder } = props
   return (
     <input

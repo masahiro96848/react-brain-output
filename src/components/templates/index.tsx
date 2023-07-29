@@ -1,7 +1,9 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { RiDeleteBinLine } from 'react-icons/ri'
+/* components */
 import { InputSearchForm } from '../atoms/InputSearchForm'
+import { AddTodo } from '../organisms/AddTodo'
 import styles from './styles.module.css'
 import { Todo } from '../../types/todo'
 
@@ -12,23 +14,23 @@ export const TodoTemplate = () => {
     { id: '3', title: 'バスケットボール' },
   ]
 
-  const [todo, setTodo] = useState('')
+  const [addInputValue, setAddInputValue] = useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
   const [todoList, setTodoList] = useState<Todo[]>(sampleTodo)
 
   const handleAddTodo = (e: ChangeEvent<HTMLInputElement>) => {
-    setTodo(e.target.value)
+    setAddInputValue(e.target.value)
   }
 
   const handleSubmitTodo = (e: FormEvent) => {
     e.preventDefault()
-    if (todo === '') return
+    if (addInputValue === '') return
     const newTodo: Todo = {
       id: uuidv4(),
-      title: todo,
+      title: addInputValue,
     }
     setTodoList([...todoList, newTodo])
-    setTodo('')
+    setAddInputValue('')
   }
 
   const handleDeleteTodo = (id: string) => {
@@ -50,15 +52,12 @@ export const TodoTemplate = () => {
       <h1 className={styles.title}>Todo List</h1>
       {/* Todo追加エリア */}
       <section className={styles.common}>
-        <form onSubmit={handleSubmitTodo}>
-          <input
-            type="text"
-            className={styles.input}
-            value={todo}
-            placeholder="Todoを入力してください"
-            onChange={handleAddTodo}
-          />
-        </form>
+        <AddTodo
+          inputValue={addInputValue}
+          placeholder={'Todoを入力してください'}
+          handleAddTodo={handleAddTodo}
+          handleSubmitTodo={handleSubmitTodo}
+        />
       </section>
       {/* Todo検索エリア */}
       <section className={styles.common}>
