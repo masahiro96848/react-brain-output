@@ -1,12 +1,9 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import { InputSearchForm } from '../atoms/InputSearchForm'
 import styles from './styles.module.css'
-
-type Todo = {
-  id: string
-  title: string
-}
+import { Todo } from '../../types/todo'
 
 export const TodoTemplate = () => {
   const sampleTodo: Todo[] = [
@@ -65,12 +62,10 @@ export const TodoTemplate = () => {
       </section>
       {/* Todo検索エリア */}
       <section className={styles.common}>
-        <input
-          type="text"
-          className={styles.input}
-          placeholder="キーワードを入力してください"
-          value={searchKeyword}
-          onChange={handleSearchTodo}
+        <InputSearchForm
+          searchInputValue={searchKeyword}
+          placeholder={'キーワードを入力してください'}
+          handleSearchTodo={handleSearchTodo}
         />
       </section>
       {/* Todoリスト表示エリア */}
