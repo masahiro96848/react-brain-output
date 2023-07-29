@@ -16,6 +16,7 @@ export const TodoTemplate = () => {
   ]
 
   const [todo, setTodo] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState('')
   const [todoList, setTodoList] = useState<Todo[]>(sampleTodo)
 
   const handleAddTodo = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,15 @@ export const TodoTemplate = () => {
     setTodoList(todo)
   }
 
+  const handleSearchTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value)
+  }
+
+  // 絞り込み後のTodoリスト
+  const filteredTodoList = todoList.filter((item) =>
+    item.title.startsWith(searchKeyword)
+  )
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Todo List</h1>
@@ -59,23 +69,29 @@ export const TodoTemplate = () => {
           type="text"
           className={styles.input}
           placeholder="キーワードを入力してください"
+          value={searchKeyword}
+          onChange={handleSearchTodo}
         />
       </section>
       {/* Todoリスト表示エリア */}
       <section className={styles.common}>
         <div>
           <ul className={styles.list}>
-            {todoList.map((item) => (
-              <li key={item.id} className={styles.todo}>
-                <span className={styles.task}>{item.title}</span>
-                <div
-                  className={styles.icons}
-                  onClick={() => handleDeleteTodo(item.id)}
-                >
-                  <RiDeleteBinLine size={25} />
-                </div>
-              </li>
-            ))}
+            {filteredTodoList.length > 0 ? (
+              filteredTodoList.map((item) => (
+                <li key={item.id} className={styles.todo}>
+                  <span className={styles.task}>{item.title}</span>
+                  <div
+                    className={styles.icons}
+                    onClick={() => handleDeleteTodo(item.id)}
+                  >
+                    <RiDeleteBinLine size={25} />
+                  </div>
+                </li>
+              ))
+            ) : (
+              <p>No matching todos found.</p>
+            )}
           </ul>
         </div>
       </section>
