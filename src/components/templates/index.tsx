@@ -1,9 +1,9 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { RiDeleteBinLine } from 'react-icons/ri'
 /* components */
 import { InputSearchForm } from '../atoms/InputSearchForm'
 import { AddTodo } from '../organisms/AddTodo'
+import { TodoList } from '../organisms/TodoList'
 import styles from './styles.module.css'
 import { Todo } from '../../types/todo'
 
@@ -69,25 +69,10 @@ export const TodoTemplate = () => {
       </section>
       {/* Todoリスト表示エリア */}
       <section className={styles.common}>
-        <div>
-          <ul className={styles.list}>
-            {filteredTodoList.length > 0 ? (
-              filteredTodoList.map((item) => (
-                <li key={item.id} className={styles.todo}>
-                  <span className={styles.task}>{item.title}</span>
-                  <div
-                    className={styles.icons}
-                    onClick={() => handleDeleteTodo(item.id)}
-                  >
-                    <RiDeleteBinLine size={25} />
-                  </div>
-                </li>
-              ))
-            ) : (
-              <p>No matching todos found.</p>
-            )}
-          </ul>
-        </div>
+        <TodoList
+          filteredTodoList={filteredTodoList}
+          handleDeleteTodo={handleDeleteTodo}
+        />
       </section>
     </div>
   )
