@@ -1,17 +1,12 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { INIT_TODO_LIST } from '../constants/data'
 import { Todo } from '../types/todo'
 
 export const useTodo = () => {
-  const sampleTodo: Todo[] = [
-    { id: '1', title: '野球' },
-    { id: '2', title: 'サッカー' },
-    { id: '3', title: 'バスケットボール' },
-  ]
-
   const [addInputValue, setAddInputValue] = useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
-  const [todoList, setTodoList] = useState<Todo[]>(sampleTodo)
+  const [todoList, setTodoList] = useState<Todo[]>(INIT_TODO_LIST)
 
   const handleAddTodo = (e: ChangeEvent<HTMLInputElement>) => {
     setAddInputValue(e.target.value)
