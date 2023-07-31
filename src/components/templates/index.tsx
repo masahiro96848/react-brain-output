@@ -2,15 +2,22 @@
 import { InputSearchForm } from '../atoms/InputSearchForm'
 import { AddTodo } from '../organisms/AddTodo'
 import { TodoList } from '../organisms/TodoList'
-/* hooks */
-import { useTodo } from '../../hooks/useTodo'
+/* contexts */
+import { useTodoContext } from '../../contexts/TodoContext'
+
 import styles from './styles.module.css'
 
 export const TodoTemplate = () => {
-  const [
-    { addInputValue, searchKeyword, filteredTodoList },
-    { handleAddTodo, handleDeleteTodo, handleSearchTodo, handleSubmitTodo },
-  ] = useTodo()
+  // コンテキストから状態とロジックを呼び出してコンポーネントにあてがう
+  const {
+    addInputValue,
+    searchKeyword,
+    filteredTodoList,
+    handleAddTodo,
+    handleDeleteTodo,
+    handleSubmitTodo,
+    handleSearchTodo,
+  } = useTodoContext()
 
   return (
     <div className={styles.container}>
